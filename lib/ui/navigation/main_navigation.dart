@@ -5,7 +5,7 @@ import '../widgets/main_screen/main_screen.dart';
 
 abstract class MainNavigationRouteNames {
   static const auth = 'auth';
-  static const main = 'auth';
+  static const main = '/';
 }
 
 class MainNavigation {

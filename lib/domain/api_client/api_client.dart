@@ -2,52 +2,27 @@
 
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter_login_vk/flutter_login_vk.dart';
 import 'package:vk/domain/entity/friends_response.dart';
 import 'package:vk/domain/entity/user.dart';
+import 'package:vk/domain/session_data_provider/session_data_provider.dart';
 
 import '../entity/gruop_response.dart';
 
 class ApiClient {
-  late VKLogin vk;
+  final _session = SessionDataProvider();
   var errorText = '';
-  VKAccessToken? _token;
   static const _host = 'https://api.vk.com';
   static const _apiVersion = 'v=5.131';
   final _client = HttpClient();
 
-  Future<void> _initSDK() async {
-    // Create an instance of VKLogin
-    vk = VKLogin();
-    // Initialize
-    await vk.initSdk();
-  }
-
   Future<String> getToken() async {
-    await _initSDK();
-    _token = await vk.accessToken;
-    _token ??= await signIn();
-    return _token!.token;
-  }
-
-  Future<VKAccessToken> signIn() async {
-    final res = await vk.logIn(scope: [
-      VKScope.friends,
-      VKScope.groups,
-    ]);
-    res.toString();
-    final VKLoginResult? result = res.asValue?.value;
-    if (result == null) {
+    final token = await _session.token();
+    if (token == null) {
       throw NullThrownError();
     }
-
-    final VKAccessToken? _token = result.accessToken;
-    if (_token == null) {
-      throw NullThrownError();
-    }
-    return _token;
+    return token;
   }
+
 
   Future<User> getUserProfile() async {
     final json = await _getResponseToJson(
