@@ -2,11 +2,14 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:vk/domain/entity/friends_response.dart';
+
+import 'package:vk/domain/entity/photos_response/photo_response.dart';
 import 'package:vk/domain/entity/user.dart';
 import 'package:vk/domain/session_data_provider/session_data_provider.dart';
 
-import '../entity/gruop_response.dart';
+import '../entity/frend_response/friends_response.dart';
+import '../entity/group_response/gruop_response.dart';
+
 
 class ApiClient {
   final _session = SessionDataProvider();
@@ -22,7 +25,6 @@ class ApiClient {
     }
     return token;
   }
-
 
   Future<User> getUserProfile() async {
     final json = await _getResponseToJson(
@@ -47,11 +49,11 @@ class ApiClient {
     return groupResponse;
   }
 
-  Future<GroupResponse> getPhotos() async {
-    final json =
-        await _getResponseToJson(uri: '${_host}/method/groups.get?extended=1');
-    final groupResponse = GroupResponse.fromJson(json['response']);
-    return groupResponse;
+  Future<PhotoResponse> getPhotos([String ownerId = '']) async {
+    final json = await _getResponseToJson(
+        uri: '${_host}/method/photos.getAll?owner_id = ${ownerId}');
+    final photoResponse = PhotoResponse.fromJson(json['response']);
+    return photoResponse;
   }
 
   Future<Map<String, dynamic>> _getResponseToJson({required String uri}) async {

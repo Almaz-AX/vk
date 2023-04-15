@@ -2,47 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 
-
 import 'package:vk/ui/widgets/main_screen/friends/friends_model.dart';
 import 'package:vk/ui/widgets/main_screen/my_profile/my_profile_model.dart';
 import 'package:vk/ui/widgets/main_screen/my_profile/about_user/about_user_widget.dart';
-
-
+import 'package:vk/ui/widgets/main_screen/my_profile/photos/photos_widget.dart';
+import 'package:vk/ui/widgets/main_screen/my_profile/photos/photos_widget_model.dart';
 
 class MyProfileWidget extends StatelessWidget {
   const MyProfileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: const [
-      DecoraitedContainer(child: _UserInfo()),
-  
-      _FriendsWidget(),
-   
-      SizedBox(
-        height: 10,
-      )
-
+    return ListView(children: [
+      const DecoraitedContainer(child: _UserInfo()),
+      const _FriendsWidget(),
+      const SizedBox(
+        height: 10,),
+      DecoraitedContainer(child: ChangeNotifierProvider(create: ((context) => PhotosWidgetModel()), child: const PhotoWidget(),)),
     ]);
-  }
-}
-
-
-
-class _PhotosWidget extends StatelessWidget {
-  const _PhotosWidget({
-    Key? key,
-    required this.photoWidget,
-  }) : super(key: key);
-
-  final List<Widget> photoWidget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      clipBehavior: Clip.antiAlias,
-      children: photoWidget,
-    );
   }
 }
 
@@ -65,22 +42,36 @@ class _FriendsWidget extends StatelessWidget {
           .toList();
     }
 
-    return Padding(padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Container( height: 60, width: double.infinity, decoration:  BoxDecoration( color: Colors.white, borderRadius: BorderRadius.circular(10)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: [
             Center(
               child: Row(
                 children: [
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   const Text('ДРУЗЬЯ'),
                   const SizedBox(
                     width: 5,
                   ),
                   Text('$friendsCount'),
-                  const Expanded(child: SizedBox(height: 5),),
-                  Row(mainAxisAlignment: MainAxisAlignment.end,children: friendsWidget,),
-                  const SizedBox(width: 10,),
+                  const Expanded(
+                    child: SizedBox(height: 5),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: friendsWidget,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                 ],
               ),
             ),
@@ -88,8 +79,8 @@ class _FriendsWidget extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
-                onTap: () {
-              },),
+                onTap: () {},
+              ),
             )
           ],
         ),
@@ -164,7 +155,7 @@ class _UserInfo extends StatelessWidget {
         child: Text('Ничего не прогрузилось'),
       );
     }
-    final photoUri = userProfile.photo;
+    final photoUri = userProfile.avatarPhoto;
     return Column(
       children: <Widget>[
         CircleAvatar(

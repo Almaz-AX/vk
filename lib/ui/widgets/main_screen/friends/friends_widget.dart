@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 
-import '../../../../domain/entity/friend.dart';
+import '../../../../domain/entity/frend_response/friend.dart';
 import '../../../../library/widgets/inherit/provider.dart';
 import 'friends_model.dart';
 

@@ -10,7 +10,7 @@ abstract class MainNavigationRouteNames {
 
 class MainNavigation {
   initialRoute(bool isAuth) =>
-      isAuth ? MainNavigationRouteNames.main : MainNavigationRouteNames.auth;
+      isAuth ? MainNavigationRouteNames.auth : MainNavigationRouteNames.auth;
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteNames.auth: (context) => const AuthWidget(),
     MainNavigationRouteNames.main: (context) => const MainFeedWidget(),

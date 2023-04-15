@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:vk/domain/entity/photos_response/photo_response.dart';
 
 part 'user.g.dart';
 
@@ -15,7 +16,7 @@ class User {
   final List relatives;
   final Map<String, int> counters;
   @JsonKey(name: 'photo_100')
-  final String photo;
+  final String avatarPhoto;
 
   final String firstName;
   final String lastName;
@@ -33,7 +34,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.online,
-    required this.photo,
+    required this.avatarPhoto,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -13,7 +13,7 @@ class AuthWidget extends StatefulWidget {
 
 class _AuthWidgetState extends State<AuthWidget> {
   static const url =
-      'https://oauth.vk.com/authorize?client_id=51515340&display=mobile&scope=friends,groups,wall,photos&response_type=token&v=5.131';
+      'https://oauth.vk.com/authorize?client_id=51515340&display=mobile&scope=friends,groups,photos&response_type=token&v=5.131';
 
   static final session = SessionDataProvider();
 
@@ -28,7 +28,7 @@ class _AuthWidgetState extends State<AuthWidget> {
           url,
         ) async {
           if (url.contains('access_token')) {
-            session.saveToken(
+            await session.saveToken(
                 url.substring(url.indexOf('=') + 1, url.indexOf('&')));
             Navigator.pushNamed(context, MainNavigationRouteNames.main);
           }
@@ -42,7 +42,7 @@ class _AuthWidgetState extends State<AuthWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('webview'),
+          title: const Text('Авторизация'),
         ),
         body: WebViewWidget(controller: controller));
   }

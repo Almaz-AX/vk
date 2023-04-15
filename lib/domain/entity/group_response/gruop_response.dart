@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vk/domain/entity/group.dart';
+import 'package:vk/domain/entity/group_response/group.dart';
 
 part 'gruop_response.g.dart';
 

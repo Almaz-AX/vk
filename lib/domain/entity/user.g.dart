@@ -18,7 +18,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
       online: json['online'] as int,
-      photo: json['photo_100'] as String,
+      avatarPhoto: json['photo_100'] as String,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -30,7 +30,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'home_town': instance.homeTown,
       'relatives': instance.relatives,
       'counters': instance.counters,
-      'photo_100': instance.photo,
+      'photo_100': instance.avatarPhoto,
       'first_name': instance.firstName,
       'last_name': instance.lastName,
       'online': instance.online,

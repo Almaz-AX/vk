@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vk/domain/api_client/api_client.dart';
 
-import '../../../../domain/entity/friend.dart';
+import '../../../../domain/entity/frend_response/friend.dart';
+
 
 class FriendsModel extends ChangeNotifier {
   final _apiClient = ApiClient();

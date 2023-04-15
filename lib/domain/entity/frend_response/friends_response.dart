@@ -1,7 +1,8 @@
 // ignore_for_file: unnecessary_cast
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vk/domain/entity/friend.dart';
+import 'package:vk/domain/entity/frend_response/friend.dart';
+
 
 part 'friends_response.g.dart';
 

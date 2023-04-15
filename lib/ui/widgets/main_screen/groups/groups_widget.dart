@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vk/domain/entity/group.dart';
 import 'package:vk/library/widgets/inherit/provider.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 import 'package:vk/ui/widgets/main_screen/groups/groups_model.dart';
+import '../../../../domain/entity/group_response/group.dart';
 
 class GroupsWidget extends StatelessWidget {
   const GroupsWidget({super.key});
