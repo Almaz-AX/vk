@@ -6,6 +6,7 @@ import 'package:vk/ui/widgets/main_screen/friends/friends_model.dart';
 import 'package:vk/ui/widgets/main_screen/profile/profile_model.dart';
 import 'package:vk/ui/widgets/main_screen/profile/about_user/about_user_widget.dart';
 import 'package:vk/ui/widgets/main_screen/profile/user_content/user_content.dart';
+import 'package:vk/ui/widgets/main_screen/profile/wall/wall.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -14,11 +15,23 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(children: const [
       DecoraitedContainer(child: _UserInfo()),
-      SizedBox(height: 10,),
+      SizedBox(
+        height: 10,
+      ),
       DecoraitedContainer(child: _Friends()),
-      SizedBox(height: 10,),
-      DecoraitedContainer(child: UserContent(),),
-      
+      SizedBox(
+        height: 10,
+      ),
+      DecoraitedContainer(
+        child: UserContent(),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      DecoraitedContainer(child: Wall()),
+      SizedBox(
+        height: 10,
+      ),
     ]);
   }
 }
