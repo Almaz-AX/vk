@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vk/domain/api_client/api_client.dart';
-import '../../../../../domain/entity/photos_response/photo.dart';
+import '../../../../../../domain/entity/photos_response/photo.dart';
 
-class PhotosWidgetModel extends ChangeNotifier {
+class PhotoCardsWidgetModel extends ChangeNotifier {
   final _apiClient = ApiClient();
   final _photos = <Photo>[];
 
@@ -14,7 +14,7 @@ class PhotosWidgetModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  PhotosWidgetModel() {
+  PhotoCardsWidgetModel() {
     _loadPhotos();
   }
 }

@@ -3,28 +3,28 @@ import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 
 import 'package:vk/ui/widgets/main_screen/friends/friends_model.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/my_profile_model.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/about_user/about_user_widget.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/photos/photos_widget.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/photos/photos_widget_model.dart';
+import 'package:vk/ui/widgets/main_screen/profile/profile_model.dart';
+import 'package:vk/ui/widgets/main_screen/profile/about_user/about_user_widget.dart';
+import 'package:vk/ui/widgets/main_screen/profile/user_content/user_content.dart';
 
-class MyProfileWidget extends StatelessWidget {
-  const MyProfileWidget({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      const DecoraitedContainer(child: _UserInfo()),
-      const _FriendsWidget(),
-      const SizedBox(
-        height: 10,),
-      DecoraitedContainer(child: ChangeNotifierProvider(create: ((context) => PhotosWidgetModel()), child: const PhotoWidget(),)),
+    return ListView(children: const [
+      DecoraitedContainer(child: _UserInfo()),
+      SizedBox(height: 10,),
+      DecoraitedContainer(child: _Friends()),
+      SizedBox(height: 10,),
+      DecoraitedContainer(child: UserContent(),),
+      
     ]);
   }
 }
 
-class _FriendsWidget extends StatelessWidget {
-  const _FriendsWidget({
+class _Friends extends StatelessWidget {
+  const _Friends({
     Key? key,
   }) : super(key: key);
 
@@ -44,11 +44,9 @@ class _FriendsWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Container(
-        height: 60,
+      child: SizedBox(
+        height: 40,
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: [
             Center(
@@ -89,67 +87,13 @@ class _FriendsWidget extends StatelessWidget {
   }
 }
 
-class _ChoiceContent extends StatelessWidget {
-  const _ChoiceContent({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(children: [
-        Column(
-          children: const [Icon(Icons.camera_alt_outlined), Text('История')],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          children: const [Icon(Icons.note_alt_outlined), Text('Запись')],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          children: const [Icon(Icons.photo_album_outlined), Text('Фото')],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          children: const [Icon(Icons.live_tv), Text('Клип')],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          children: const [
-            Icon(Icons.not_listed_location_outlined),
-            Text('Вопрос')
-          ],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          children: const [Icon(Icons.list_alt), Text('Мои желания')],
-        ),
-        const SizedBox(
-          width: 20,
-        )
-      ]),
-    );
-  }
-}
-
 class _UserInfo extends StatelessWidget {
   const _UserInfo({
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final userProfile = context.watch<MyProfileModel>().user;
+    final userProfile = context.watch<ProfileModel>().user;
     if (userProfile == null) {
       return const SizedBox(
         child: Text('Ничего не прогрузилось'),

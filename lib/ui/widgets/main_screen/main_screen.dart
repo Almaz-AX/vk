@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/library/widgets/inherit/provider.dart';
 import 'package:vk/ui/widgets/main_screen/friends/friends_model.dart';
-import 'package:vk/ui/widgets/main_screen/friends/friends_widget.dart';
+import 'package:vk/ui/widgets/main_screen/friends/friends.dart';
 import 'package:vk/ui/widgets/main_screen/groups/groups_model.dart';
-import 'package:vk/ui/widgets/main_screen/groups/groups_widget.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/my_profile_model.dart';
-import 'package:vk/ui/widgets/main_screen/my_profile/my_profile_widget.dart';
+import 'package:vk/ui/widgets/main_screen/groups/groups.dart';
+import 'package:vk/ui/widgets/main_screen/profile/profile_model.dart';
+import 'package:vk/ui/widgets/main_screen/profile/profile.dart';
 
 class MainFeedWidget extends StatefulWidget {
   const MainFeedWidget({super.key});
@@ -17,12 +17,12 @@ class MainFeedWidget extends StatefulWidget {
 
 class _MainFeedWidgetState extends State<MainFeedWidget> {
   int _selectedTab = 0;
-  final myProfileModel = MyProfileModel();
+  final myProfileModel = ProfileModel();
   final friendsModel = FriendsModel();
   final groupsModel = GroupsModel();
   List<String> widgetOptions = ['Друзья', 'Сообщества', 'Профиль'];
 
-  void _onItemTapped(int index)  {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedTab = index;
     });
@@ -34,8 +34,6 @@ class _MainFeedWidgetState extends State<MainFeedWidget> {
     myProfileModel.loadUserProfile();
     friendsModel.loadFriendList();
     groupsModel.loadGroups();
-    
-   
   }
 
   @override
@@ -48,13 +46,16 @@ class _MainFeedWidgetState extends State<MainFeedWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          NotifierProvider(model: friendsModel, child: const FriendsWidget()),
-          NotifierProvider(model:groupsModel, child: const GroupsWidget()),
-          MultiProvider(
-              providers: [ChangeNotifierProvider.value(value: myProfileModel,),
-                          ChangeNotifierProvider.value(value: friendsModel,),
-                          ],
-              child: const MyProfileWidget())
+          NotifierProvider(model: friendsModel, child: const Frends()),
+          NotifierProvider(model: groupsModel, child: const Groups()),
+          MultiProvider(providers: [
+            ChangeNotifierProvider.value(
+              value: myProfileModel,
+            ),
+            ChangeNotifierProvider.value(
+              value: friendsModel,
+            ),
+          ], child: const Profile())
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

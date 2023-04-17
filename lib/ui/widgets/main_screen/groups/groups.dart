@@ -4,8 +4,8 @@ import 'package:vk/ui/widgets/components/decoraited_container.dart';
 import 'package:vk/ui/widgets/main_screen/groups/groups_model.dart';
 import '../../../../domain/entity/group_response/group.dart';
 
-class GroupsWidget extends StatelessWidget {
-  const GroupsWidget({super.key});
+class Groups extends StatelessWidget {
+  const Groups({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,15 @@ class GroupsWidget extends StatelessWidget {
     return ListView.builder(
         itemCount: groupList.length,
         itemBuilder: (context, index) {
-          return DecoraitedContainer(child: _GroupsRowWidget(group: groupList[index]));
+          return DecoraitedContainer(
+              child: _GroupsRow(group: groupList[index]));
         });
   }
 }
 
-class _GroupsRowWidget extends StatelessWidget {
+class _GroupsRow extends StatelessWidget {
   final Group group;
-  const _GroupsRowWidget({Key? key, required this.group}) : super(key: key);
+  const _GroupsRow({Key? key, required this.group}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

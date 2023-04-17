@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vk/domain/api_client/api_client.dart';
 import 'package:vk/domain/entity/user.dart';
 
-class MyProfileModel extends ChangeNotifier {
+class ProfileModel extends ChangeNotifier {
   final ApiClient apiClient = ApiClient();
   User? _user;
 

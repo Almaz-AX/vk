@@ -5,8 +5,8 @@ import '../../../../domain/entity/frend_response/friend.dart';
 import '../../../../library/widgets/inherit/provider.dart';
 import 'friends_model.dart';
 
-class FriendsWidget extends StatelessWidget {
-  const FriendsWidget({super.key});
+class Frends extends StatelessWidget {
+  const Frends({super.key});
   @override
   Widget build(BuildContext context) {
     final friendList = NotifierProvider.watch<FriendsModel>(context)?.friends;
@@ -20,14 +20,15 @@ class FriendsWidget extends StatelessWidget {
     return ListView.builder(
         itemCount: friendList.length,
         itemBuilder: (context, index) {
-          return DecoraitedContainer(child: _FriendRowWidget(friend: friendList[index]));
+          return DecoraitedContainer(
+              child: _FriendRow(friend: friendList[index]));
         });
   }
 }
 
-class _FriendRowWidget extends StatelessWidget {
+class _FriendRow extends StatelessWidget {
   final Friend friend;
-  const _FriendRowWidget({Key? key, required this.friend}) : super(key: key);
+  const _FriendRow({Key? key, required this.friend}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,7 @@ class _FriendRowWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         child: SizedBox(
           height: 40,
-          child: Stack(
-          children: [
+          child: Stack(children: [
             Row(
               children: <Widget>[
                 CircleAvatar(
@@ -47,43 +47,36 @@ class _FriendRowWidget extends StatelessWidget {
                 Text(
                   '${friend.firstName} ${friend.lastName}',
                   style: const TextStyle(fontSize: 18),
-                ),               
+                ),
               ],
             ),
-            
             Material(
               color: Colors.transparent,
               child: InkWell(onTap: () {}),
             ),
-            
-            Row( mainAxisAlignment: MainAxisAlignment.end, 
-              children: [
-                TextButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    ),
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.phone,
-                      color: Colors.blue,
-                      ),
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              TextButton(
+                style: OutlinedButton.styleFrom(
+                  shape: const CircleBorder(),
                 ),
-         
-                TextButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    ),
-                    
-                  onPressed: () {},
-                  child: const Icon(
-                      Icons.message,
-                      color: Colors.blue,
-                      ),
+                onPressed: () {},
+                child: const Icon(
+                  Icons.phone,
+                  color: Colors.blue,
                 ),
-              ]
               ),
+              TextButton(
+                style: OutlinedButton.styleFrom(
+                  shape: const CircleBorder(),
+                ),
+                onPressed: () {},
+                child: const Icon(
+                  Icons.message,
+                  color: Colors.blue,
+                ),
+              ),
+            ]),
           ]),
         ));
-            
   }
 }
