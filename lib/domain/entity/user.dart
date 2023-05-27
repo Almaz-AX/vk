@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vk/domain/entity/photos_response/photo_response.dart';
+
 
 part 'user.g.dart';
 

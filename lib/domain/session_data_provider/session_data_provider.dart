@@ -22,5 +22,6 @@ class SessionDataProvider {
     return (await _storage.write(
         key: SessionDatatProviderKeys._apiKey, value: value));
   }
+  
 }
 

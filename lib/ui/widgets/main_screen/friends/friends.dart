@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 
 import '../../../../domain/entity/frend_response/friend.dart';
-import '../../../../library/widgets/inherit/provider.dart';
 import 'friends_model.dart';
 
 class Frends extends StatelessWidget {
   const Frends({super.key});
   @override
   Widget build(BuildContext context) {
-    final friendList = NotifierProvider.watch<FriendsModel>(context)?.friends;
-
-    if (friendList == null) {
-      return const SizedBox(
-        height: 15,
-        child: Text('Что то пошло не так'),
-      );
-    }
+    final friendList =
+        context.watch<FriendsModel>().friends;
     return ListView.builder(
         itemCount: friendList.length,
         itemBuilder: (context, index) {

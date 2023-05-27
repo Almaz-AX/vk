@@ -69,7 +69,7 @@ class _Presents extends StatelessWidget {
 
 class _BreifInformation extends StatelessWidget {
   final User userProfile;
-  const _BreifInformation({super.key, required this.userProfile});
+  const _BreifInformation({required this.userProfile});
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +159,7 @@ class _BreifInformation extends StatelessWidget {
 
 class _Social extends StatelessWidget {
   final User userProfile;
-  const _Social({super.key, required this.userProfile});
+  const _Social({required this.userProfile});
 
   @override
   Widget build(BuildContext context) {

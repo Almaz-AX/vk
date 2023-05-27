@@ -1,35 +1,49 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vk/ui/widgets/components/decoraited_container.dart';
 
+import 'package:vk/ui/widgets/components/decoraited_container.dart';
 import 'package:vk/ui/widgets/main_screen/friends/friends_model.dart';
 import 'package:vk/ui/widgets/main_screen/profile/profile_model.dart';
-import 'package:vk/ui/widgets/main_screen/profile/about_user/about_user_widget.dart';
+import 'package:vk/ui/widgets/main_screen/profile/user_content/photos/photo_cards_model.dart';
 import 'package:vk/ui/widgets/main_screen/profile/user_content/user_content.dart';
+import 'package:vk/ui/widgets/main_screen/profile/user_info/user_info.dart';
 import 'package:vk/ui/widgets/main_screen/profile/wall/wall.dart';
 
+import '../../../../domain/entity/frend_response/friend.dart';
+
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  const Profile({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: const [
-      DecoraitedContainer(child: _UserInfo()),
-      SizedBox(
-        height: 10,
+    final friends = context.read<FriendsModel>().friends;
+    return ListView(children: [
+      const DecoraitedContainer(
+        child: UserInfo(),
       ),
-      DecoraitedContainer(child: _Friends()),
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
       DecoraitedContainer(
-        child: UserContent(),
-      ),
-      SizedBox(
+        child: _Friends(friends: friends ),
+        ),
+      const SizedBox(
         height: 10,
       ),
-      DecoraitedContainer(child: Wall()),
-      SizedBox(
+      DecoraitedContainer(
+        child: ChangeNotifierProvider(
+          create: (context) => PhotoCardsModel(
+            ownerId: context.read<ProfileModel>().user?.id.toString()?? ''),
+          child: UserContent()),
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      const DecoraitedContainer(child: Wall()),
+      const SizedBox(
         height: 10,
       ),
     ]);
@@ -37,17 +51,22 @@ class Profile extends StatelessWidget {
 }
 
 class _Friends extends StatelessWidget {
+  final List<Friend> friends;
   const _Friends({
     Key? key,
+    required this.friends,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final friendsCount = context.watch<FriendsModel>().friends.length;
-
+    var friends = context.watch<FriendsModel>().friends;
+    final friendsCount = friends.length;
     var friendsWidget = <Widget>[];
-    if (friendsCount != 0) {
-      final friends = context.watch<FriendsModel>().friends.sublist(0, 3);
+
+    if (friends.isNotEmpty) {
+      if (friends.length > 3) {
+        friends = friends.sublist(0, 3);
+      }
       friendsWidget = friends
           .map((friend) => CircleAvatar(
                 backgroundImage: NetworkImage(friend.photo),
@@ -96,94 +115,6 @@ class _Friends extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _UserInfo extends StatelessWidget {
-  const _UserInfo({
-    Key? key,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final userProfile = context.watch<ProfileModel>().user;
-    if (userProfile == null) {
-      return const SizedBox(
-        child: Text('Ничего не прогрузилось'),
-      );
-    }
-    final photoUri = userProfile.avatarPhoto;
-    return Column(
-      children: <Widget>[
-        CircleAvatar(
-          backgroundImage: NetworkImage(photoUri),
-          radius: 45,
-        ),
-        const SizedBox(height: 15),
-        TextButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return AboutUser(
-                    userProfile: userProfile,
-                  );
-                });
-          },
-          child: Column(children: [
-            Text(
-              '${userProfile.firstName} ${userProfile.lastName}',
-              maxLines: 1,
-              style: const TextStyle(fontSize: 20, color: Colors.black87),
-            ),
-            const SizedBox(height: 5),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Icon(Icons.location_on, size: 12, color: Colors.blueGrey),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                userProfile.homeTown,
-                style: const TextStyle(fontSize: 12, color: Colors.blueGrey),
-              ),
-              const SizedBox(
-                width: 7,
-              ),
-              const Icon(Icons.school, size: 12, color: Colors.blueGrey),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                userProfile.occupation['name'],
-                style: const TextStyle(fontSize: 12, color: Colors.blueGrey),
-              )
-            ]),
-          ]),
-        ),
-        const SizedBox(height: 5),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[200],
-            shadowColor: Colors.white,
-          ),
-          onPressed: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.add_circle_outline,
-                color: Colors.blue,
-                size: 20,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Опубликовать',
-                style: TextStyle(color: Colors.blue),
-              )
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

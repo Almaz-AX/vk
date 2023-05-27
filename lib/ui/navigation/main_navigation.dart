@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:vk/ui/widgets/main_screen/profile/user_content/photos/photo_full_widget.dart';
 
 import '../widgets/auth/auth.dart';
 import '../widgets/main_screen/main_screen.dart';
@@ -6,13 +6,13 @@ import '../widgets/main_screen/main_screen.dart';
 abstract class MainNavigationRouteNames {
   static const auth = 'auth';
   static const main = '/';
+  static const photo = 'photo/';
 }
 
 class MainNavigation {
-  initialRoute(bool isAuth) =>
-      isAuth ? MainNavigationRouteNames.auth : MainNavigationRouteNames.auth;
-  final routes = <String, Widget Function(BuildContext)>{
+  final routes = {
     MainNavigationRouteNames.auth: (context) => const Auth(),
-    MainNavigationRouteNames.main: (context) => const MainFeedWidget(),
+    MainNavigationRouteNames.main: (context) => MainScreen.create(),
+    MainNavigationRouteNames.photo: (context) => const PhotoFull(),
   };
 }

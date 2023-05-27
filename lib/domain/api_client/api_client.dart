@@ -10,7 +10,6 @@ import 'package:vk/domain/session_data_provider/session_data_provider.dart';
 import '../entity/frend_response/friends_response.dart';
 import '../entity/group_response/gruop_response.dart';
 
-
 class ApiClient {
   final _session = SessionDataProvider();
   var errorText = '';
@@ -21,9 +20,13 @@ class ApiClient {
   Future<String> getToken() async {
     final token = await _session.token();
     if (token == null) {
-      throw NullThrownError();
+      throw Exception();
     }
     return token;
+  }
+
+  bool tokenIsValid() {
+    return false;
   }
 
   Future<User> getUserProfile() async {
@@ -67,7 +70,6 @@ class ApiClient {
         .toList()
         .then((value) => value.join())
         .then((v) => jsonDecode(v) as Map<String, dynamic>);
-
     return json;
   }
 }

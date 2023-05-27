@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vk/library/widgets/inherit/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/components/decoraited_container.dart';
 import 'package:vk/ui/widgets/main_screen/groups/groups_model.dart';
 import '../../../../domain/entity/group_response/group.dart';
@@ -9,13 +9,8 @@ class Groups extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groupList = NotifierProvider.watch<GroupsModel>(context)?.groups;
-    if (groupList == null) {
-      return const SizedBox(
-        height: 15,
-        child: Text('Что-то пошло не так'),
-      );
-    }
+    final groupList = context.select<GroupsModel, List>((groupsModel) => groupsModel.groups);
+    
     return ListView.builder(
         itemCount: groupList.length,
         itemBuilder: (context, index) {
