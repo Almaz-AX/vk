@@ -35,7 +35,7 @@ class _UserContentState extends State<UserContent>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 366,
+      height: MediaQuery.of(context).size.width * 0.91,
       width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,

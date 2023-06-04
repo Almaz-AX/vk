@@ -8,21 +8,21 @@ class PhotoCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var photoList =
-        context.watch<PhotoCardsModel>().photos;
+    final width = MediaQuery.of(context).size.width;
+    var photoList = context.watch<PhotoCardsModel>().photos;
     if (photoList.length > 6) {
       photoList = photoList.sublist(0, 6);
     }
     final photoWidgets = <Widget>[];
     for (final photo in photoList) {
       final widget = Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1.5, horizontal: 1.5),
+          padding: EdgeInsets.symmetric(vertical: width/250, horizontal: width/ 250),
           child: InkWell(
             onTap: () =>
                 Navigator.pushNamed(context, MainNavigationRouteNames.photo),
             child: Container(
-              width: 126,
-              height: 126,
+              width: width/ 3.3,
+              height: width/ 3.3,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(18)),
               ),

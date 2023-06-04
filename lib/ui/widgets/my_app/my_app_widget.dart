@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(brightness: Brightness.dark),
       routes: mainNavigation.routes,
-      initialRoute: MainNavigationRouteNames.main,
+     initialRoute: MainNavigationRouteNames.auth,
     );
   }
 }

@@ -23,5 +23,9 @@ class SessionDataProvider {
         key: SessionDatatProviderKeys._apiKey, value: value));
   }
   
+  Future<void> removeToken() async {
+    return (await _storage.delete(
+        key: SessionDatatProviderKeys._apiKey, ));
+  }
 }
 

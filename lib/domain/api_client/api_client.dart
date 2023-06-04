@@ -3,12 +3,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+
 import 'package:vk/domain/entity/photos_response/photo_response.dart';
-import 'package:vk/domain/entity/user.dart';
+import 'package:vk/domain/entity/user_response/user_response.dart';
+
 import 'package:vk/domain/session_data_provider/session_data_provider.dart';
 
 import '../entity/frend_response/friends_response.dart';
 import '../entity/group_response/gruop_response.dart';
+import '../entity/user_response/user.dart';
 
 class ApiClient {
   final _session = SessionDataProvider();
@@ -29,35 +32,34 @@ class ApiClient {
     return false;
   }
 
-  Future<User> getUserProfile() async {
+  Future<UserResponse> getUserProfile() async {
     final json = await _getResponseToJson(
         uri:
             '${_host}/method/users.get?fields=bdate,photo_100,city,home_town,counters,domain,online,occupation,relatives');
-    final userResponse = User.fromJson(json['response'][0]);
+    final userResponse = UserResponse.fromJson(json);
     return userResponse;
-    //  _getResponseToJson(uri: '${_host}/method/users.get?fields=bdate,photo_100,home_town,counters,domain,online,occupation,relatives')
   }
+  
+    Future<FriendsResponse> getFriends() async {
+      final json = await _getResponseToJson(
+          uri: '${_host}/method/friends.get?fields=photo_100');
+      final friendsResponse = FriendsResponse.fromJson(json['response']);
+      return friendsResponse;
+    }
 
-  Future<FriendsResponse> getFriends() async {
-    final json = await _getResponseToJson(
-        uri: '${_host}/method/friends.get?fields=photo_100');
-    final friendsResponse = FriendsResponse.fromJson(json['response']);
-    return friendsResponse;
-  }
+    Future<GroupResponse> getGroup() async {
+      final json =
+          await _getResponseToJson(uri: '${_host}/method/groups.get?extended=1');
+      final groupResponse = GroupResponse.fromJson(json['response']);
+      return groupResponse;
+    }
 
-  Future<GroupResponse> getGroup() async {
-    final json =
-        await _getResponseToJson(uri: '${_host}/method/groups.get?extended=1');
-    final groupResponse = GroupResponse.fromJson(json['response']);
-    return groupResponse;
-  }
-
-  Future<PhotoResponse> getPhotos([String ownerId = '']) async {
-    final json = await _getResponseToJson(
-        uri: '${_host}/method/photos.getAll?owner_id = ${ownerId}');
-    final photoResponse = PhotoResponse.fromJson(json['response']);
-    return photoResponse;
-  }
+    Future<PhotoResponse> getPhotos([String ownerId = '']) async {
+      final json = await _getResponseToJson(
+          uri: '${_host}/method/photos.getAll?owner_id = ${ownerId}');
+      final photoResponse = PhotoResponse.fromJson(json['response']);
+      return photoResponse;
+    }
 
   Future<Map<String, dynamic>> _getResponseToJson({required String uri}) async {
     final token = await getToken();

@@ -2,6 +2,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vk/domain/entity/frend_response/friend.dart';
+import 'package:vk/domain/entity/response.dart';
 
 
 part 'friends_response.g.dart';

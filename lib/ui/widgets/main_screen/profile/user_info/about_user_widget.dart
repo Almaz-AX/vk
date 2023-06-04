@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../domain/entity/user.dart';
+import '../../../../../domain/entity/user_response/user.dart';
 
 class AboutUser extends StatelessWidget {
   final User userProfile;

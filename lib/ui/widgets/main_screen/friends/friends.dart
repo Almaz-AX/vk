@@ -27,7 +27,7 @@ class _FriendRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: SizedBox(
           height: 40,
           child: Stack(children: [
@@ -49,22 +49,22 @@ class _FriendRow extends StatelessWidget {
               child: InkWell(onTap: () {}),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              TextButton(
+              IconButton(
                 style: OutlinedButton.styleFrom(
                   shape: const CircleBorder(),
                 ),
                 onPressed: () {},
-                child: const Icon(
+                icon: const Icon(
                   Icons.phone,
                   color: Colors.blue,
                 ),
               ),
-              TextButton(
+              IconButton(
                 style: OutlinedButton.styleFrom(
                   shape: const CircleBorder(),
                 ),
                 onPressed: () {},
-                child: const Icon(
+                icon: const Icon(
                   Icons.message,
                   color: Colors.blue,
                 ),
